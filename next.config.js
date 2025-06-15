@@ -8,15 +8,17 @@ const nextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.fallback = { fs: false, net: false, tls: false };
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        'bufferutil': false,
+        'utf-8-validate': false,
+      };
     }
-    config.module.rules.push({
-      test: /\.mjs$/,
-      include: /node_modules/,
-      type: 'javascript/auto',
-    });
     return config;
   },
 };
 
-module.exports = nextConfig; 
+module.exports = nextConfig;
